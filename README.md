@@ -8,4 +8,25 @@ Quantile feature selection over correlated multivariate time series data has alw
 devtools::install_github("LauraHuang0919/QFSTS")
 ```
 
+## Usage
 
+```{r attach, echo=T, results='hide', message=F, warning=F, tidy='formatR'}
+library(QFSTS)
+```
+### 1. Specification of time series components
+
+Generation of the initial time series components in the mbsts package is through the tsc.setting function. The other input parameters of the tsc.setting function are the following: The trend inclusion parameter mu and the learning rate parameter rho for the trend component; The seasonality parameter S for the seasonal component; The damping factor parameter vrho and the frequency parameter lambda for the cycle component.
+
+```{r conversion, tidy='formatR', tidy.opts=list(width.cutoff = 70),cache=T}
+STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), #mu: include trend or not
+                     rho=c(0.6,0.3,0.1),
+                     S=c(100,70,40))
+```
+### 2. Model Training
+
+Model training with the QFSTS model is performed through the QFSTS_func function in the QFSTS package. 
+
+```{r conversion, tidy='formatR', tidy.opts=list(width.cutoff = 70),cache=T}
+QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
+
+```
