@@ -27,7 +27,7 @@ QFSTS.func(
 is the number of target series.}
 
 \item{X.star}{A (n ∗ K)-dimensional matrix containing all candidate predictor series for each target series.
-K = $\Simga$ k_i is the number of all candidate predictors for all target}
+K = Simga k_i is the number of all candidate predictors for all target}
 
 \item{STmodel}{A state space model of STmodel class returned by tsc.setting.}
 
@@ -41,7 +41,7 @@ K = $\Simga$ k_i is the number of all candidate predictors for all target}
 
 \item{R2}{A numerical value taking value in [0, 1], describing the expected percentage of variation of Y to be explained by the model. The default value is 0.8.}
 
-\item{v0}{A numerical value describing the prior degree of freedom of the inverse Wishart distribution for $\sigma_\epsilon$.}
+\item{v0}{A numerical value describing the prior degree of freedom of the inverse Wishart distribution for sigma_epsilon.}
 
 \item{v}{A numerical value describing the prior degree of freedom of the inverse Wishart distribution for (Σµ, Σδ, Στ , Σω). The default value is 0.01}
 
