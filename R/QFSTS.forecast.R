@@ -1,3 +1,15 @@
+#' Forecasting for the QFSTS mode
+#'
+#' @param mqbsts An object of the mqbsts class created by a call to the QFSTS_function function.
+#' @param STmodel An object of the STModel class created by a call to the tsc.setting function.
+#' @param newdata A vector or matrix containing the predictor variables to use in making the prediction. This is only required if the mbsts model has a regression component.
+#' @param tau A vecotr containing the quantile values to use in making the prediction.
+#' @param steps An integer value describing the number of time steps ahead to be forecasted. If it is greater than the number of new observations in the newdata, zero values will fill in missing new observations.
+#'
+#' @return Predicting Distribution and mean
+#' @export
+#'
+#' @examples
 QFSTS.forecast <-
   function(mqbsts,STmodel=NULL,newdata=NULL,tau=NULL,steps=1){
     ##extract values from mqbsts object
@@ -12,7 +24,7 @@ QFSTS.forecast <-
     #tilde.phi.star<-mqbsts$tilde.phi.star
     W<-mqbsts$W
 
-    
+
     if(!is.null(STmodel)){
       ##Initialization of time series components
       ls<-array(0,c(steps,dim(ob.sig2)[1],dim(mqbsts$States)[3]))
@@ -35,7 +47,7 @@ QFSTS.forecast <-
         }
       }
     }
-    
+
     if(!is.null(newdata)){
       ###check if step is greater than number of observations for newdata
       # if(dim(newdata)[1]>=steps){
@@ -56,7 +68,7 @@ QFSTS.forecast <-
     mu_err<-array(0,dim(mqbsts$Phi)[2:3])
     Phi<-mqbsts$Phi
     tilde_phi_tau<-as.vector((1-2*tau)/(tau*(1-tau)))
-    
+
     for(j in 1:steps){
       for(i in 1:dim(ob.sig2)[3]){
         # err[j,,i]=t(mvrnorm(n=1,mu=W[,i]*Phi.matrix%*%tilde_phi[,i],
@@ -76,6 +88,6 @@ QFSTS.forecast <-
       }
     }
     pred.mean<-apply(pred.distribution,c(1,2),mean)
-    
+
     return(list(pred.distribution=pred.distribution,pred.mean=pred.mean))
   }

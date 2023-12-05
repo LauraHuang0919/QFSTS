@@ -20,6 +20,37 @@ library(forecast)
 # Y=Ytrain
 # X.star=Xtrain
 
+#' Main function for the quantile feature selection time series.
+#'
+#' @param Y  A (n ∗ m)-dimensional matrix containing multiple target series, where n is thenumber of observations and m
+#'           is the number of target series.
+#' @param X.star A (n ∗ K)-dimensional matrix containing all candidate predictor series for each target series.
+#'                K = $\Simga$ k_i is the number of all candidate predictors for all target
+#                 series. The first k1 variables are the set of candidate predictors for the first target
+#                 series, and the next k2 variables are the set of candidate predictors for the second
+#                 target series, etc. Note that, one variable can appear in the X.star several times,
+#                 since different target series can contain the same candidate predictors.
+#' @param STmodel A state space model of STmodel class returned by tsc.setting.
+#' @param ki A vector of integer values denoting the acumulated number of predictors for
+#             target series. For example, if there are three target series where the first has 8
+#             predictors, the second has 6 predictors, and the third has 10 predictors, then the
+#             vector is c(8, 14, 24).
+#' @param pii A vector describing the prior inclusion probability of each candidate predictor.
+#' @param b NULL or a vector describing the prior means of regression coefficients. The default value is NULL.
+#' @param kapp A scalar value describing the number of observations worth of weight on the prior mean vector. The default value is 0.01.
+#' @param R2 A numerical value taking value in [0, 1], describing the expected percentage of variation of Y to be explained by the model. The default value is 0.8.
+#' @param v0 A numerical value describing the prior degree of freedom of the inverse Wishart distribution for $\sigma_\epsilon$.
+#' @param v A numerical value describing the prior degree of freedom of the inverse Wishart distribution for (Σµ, Σδ, Στ , Σω). The default value is 0.01
+#' @param ss A numerical value describing the prior scale matrix of the inverse Wishart distribution for (Σµ, Σδ, Στ , Σω). The default value is 0.01.
+#' @param tau A vecotr containing the quantile values.
+#' @param Phi A m × m-dimensional diagonal matrix of means of error terms.
+#' @param mc A positive integer giving the desired number of MCMC draws. The default value is 500
+#' @param burn A positive integer giving the number of initial MCMC draws to be discarded. The default value is 50.
+#'
+#' @return An object of QFSTS class
+#' @export
+#'
+#' @examples
 QFSTS.func<-
   function(Y,X.star=NULL,STmodel=NULL,
            ki=NULL,pii=NULL,
