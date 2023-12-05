@@ -30,3 +30,7 @@ Model training with the QFSTS model is performed through the QFSTS_func function
 QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
 
 ```
+
+## Details
+
+For more information on QFSTS Package, please access the package documentations or [vignettes](http://rpubs.com/LauraHuang0919/QFSTS). Please feel free to contact the author.
