@@ -5,7 +5,7 @@ Quantile feature selection over correlated multivariate time series data has alw
 ## Installation 
 
 ```{r install, tidy='formatR',eval=FALSE, echo=TRUE}
-devtools::install_github("LauraHuang0919/QFSTS")
+devtools::install_github("LauraHuang0919/QFSTS", build_vignettes = TRUE)
 ```
 
 ## Usage
@@ -24,11 +24,11 @@ STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), #mu: include trend or not
 ```
 ### 2. Model Training
 
-Model training with the QFSTS model is performed through the QFSTS_func function in the QFSTS package. Model training uses the MCMC approach, which is to sample from a probability distribution based on constructing a Markov chain that has the desired distribution as its equilibrium distribution. That is, the states of the chain after discarding some steps as “burn-in” data, are used as samples from the desired distribution. Specifically, the MBSTS model uses the Gibbs sampler for feature selection utilizing the classical “spike and slab” prior setup (George and McCulloch, 1997). Gibbs sampler can be seen as a special case of the Metropolis–Hastings algorithm. The point of the Gibbs sampler is that given a multivariate distribution it is simpler to sample from a conditional distribution than to marginalize by integrating over a joint distribution. To implement Gibbs sampler in model training, all necessary conditional probabilities were derived. In the illustration example, we run 400 MCMC iterations while discarding the results of the first 100 iterations.
+Model training with the QFSTS model is performed through the QFSTS_func function in the QFSTS package. Model training uses the MCMC approach, which is to sample from a probability distribution based on constructing a Markov chain that has the desired distribution as its equilibrium distribution. That is, the states of the chain after discarding some steps as “burn-in” data, are used as samples from the desired distribution. Specifically, the MBSTS model uses the Gibbs sampler for feature selection utilizing the classical “spike and slab” prior setup (George and McCulloch, 1997). Gibbs sampler can be seen as a special case of the Metropolis–Hastings algorithm. The point of the Gibbs sampler is that given a multivariate distribution it is simpler to sample from a conditional distribution than to marginalize by integrating over a joint distribution. To implement Gibbs sampler in model training, all necessary conditional probabilities were derived. In the illustration example, we run 40 MCMC iterations while discarding the results of the first 10 iterations.
 
 
 ```{r conversion, tidy='formatR', tidy.opts=list(width.cutoff = 70),cache=T}
-QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=400,burn=100)
+QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
 
 ```
 
