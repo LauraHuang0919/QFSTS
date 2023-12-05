@@ -4,4 +4,8 @@ Quantile feature selection over correlated multivariate time series data has alw
 
 ## Installation 
 
+```{r install, tidy='formatR',eval=FALSE, echo=TRUE}
 devtools::install_github("LauraHuang0919/QFSTS")
+```
+
+
