@@ -1,10 +1,22 @@
-# setwd("TBA")
+---
+title: "feature_tau1_rho4"
+output: html_document
+date: "2023-12-05"
+---
 
-source("R/tsc.setting.QFSTS.R")
-source("R/QFSTS.R")
-source("R/QFSTS.forecast.R")
-source("R/3_series_eg1.R")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+```{r}
+# source("R/tsc.setting.QFSTS.R")
+# source("R/QFSTS.R")
+# source("R/QFSTS.forecast.R")
+source("3_series_eg1.R")
+library(QFSTS)
+```
+
+```{r, include=FALSE}
 tau1<-c(0.1,0.1,0.1)
 count=100
 for (n in count){
@@ -14,12 +26,19 @@ for (n in count){
 
 Ytrain<-as.matrix(simdata_3series_tau1_100[,1:3])
 Xtrain<-as.matrix(simdata_3series_tau1_100[,4:27])
+```
 
+```{r}
 STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), #mu: include trend or not
                      rho=c(0.6,0.3,0.1),
                      S=c(100,70,40))
+```
 
+```{r}
+# the location index of the last predictor for each target series
 ki<- c(8,16,24)
+
+# We set pii describe the prior inclusion probabilities {πij} of each candidate predictor and initialize πij = 0.5 for i = 1,··· ,m and j = 1,··· ,ki.
 pii<- matrix(rep(0.5,dim(Xtrain)[2]),nrow=dim(Xtrain)[2])
 
 #beta
@@ -35,36 +54,9 @@ v<-0.01
 ss<-0.01
 
 Phi<-diag(c(0.7,0.6,0.9))
+```
 
+```{r}
 set.seed(1)
 QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
-
-install.packages("matrixStats")
-install.packages("latex2exp")
-
-library(latex2exp)
-library(matrixStats)
-
-mean_beta_tau1_100=rowMeans(QFSTS.model$beta.hat)
-sd_beta_tau1_100=rowSds(QFSTS.model$beta.hat)
-
-aa=which(rowMeans(QFSTS.model$Ind)[1:8]>0.3)
-
-y1_tau1_100=mean_beta_tau1_100[aa]
-y1v_tau1_100=sd_beta_tau1_100[aa]
-
-bb=which(rowMeans(QFSTS.model$Ind)[9:16]>0.3)+8
-
-y2_tau1_100=mean_beta_tau1_100[bb]
-y2v_tau1_100=sd_beta_tau1_100[bb]
-
-cc=which(rowMeans(QFSTS.model$Ind)[17:24]>0.3)+16
-
-y3_tau1_100=mean_beta_tau1_100[cc]
-y3v_tau1_100=sd_beta_tau1_100[cc]
-
-QFSTS.forecast(QFSTS.model, STmodel, )
-
-
-
-
+```
