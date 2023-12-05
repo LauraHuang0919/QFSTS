@@ -1,5 +1,3 @@
-
-
 # install.packages("GeneralizedHyperbolic")
 # install.packages("pscl")
 # install.packages("MASS")
@@ -42,7 +40,7 @@ QFSTS.func<-
     } else {
       Sigma2<-matrix(STmodel$H,m,m) #$#$#$#$ this is Sigma_eplison
     }
-    
+
     ######Initialization of output results
     #####time series components
     if(!is.null(STmodel)){
@@ -58,26 +56,26 @@ QFSTS.func<-
     ob.sig2<-array(0,c(m,m,mc-burn))  ##Sigma_eplison
     W.record<-array(0,c(1,mc-burn))
     Phi.record<-array(0,c(m,m,mc-burn))
-    
+
     W<-rexp(1,1)
-    
+
 
     tilde_phi<-as.vector((1-2*tau)/(tau*(1-tau)))
     tilde_Phi_tau_matrix<-t(matrix(rep(tilde_phi,n),nrow=m))
     mu_err<-Phi%*%tilde_phi
     mu_err.tilde<-rep(mu_err,each=n)
-    
-    
+
+
     for(jj in 1:mc){
       #jj=1
       if(!is.null(STmodel)){  #check existence of time series components
-        ### draw latent state#### 
+        ### draw latent state####
         LS<- simulateSSM(STmodel, type = "states")    #draw latent states by smoother
         LS<-matrix(LS,ncol=dim(LS)[2])
         State.error<- simulateSSM(STmodel,type = "eta")  #draw state disturbance
         Obs.error<- matrix(simulateSSM(STmodel,type = "epsilon"),ncol=m)  #draw residuals
         State.error<-matrix(State.error,ncol=dim(State.error)[2])
-        
+
         ##### Draw state component parameters ###equation 30 in mbsts###
         v.post <-  v+n     #posterior degree freedom
         ss.post<-vector()
@@ -87,7 +85,7 @@ QFSTS.func<-
           State.sigma2[i]<-rigamma(1,alpha=v.post,beta=ss.post[i]) #draw state parameters
         }
       }
-      
+
       #####Transformation end##############
       if(!is.null(X.star)){ #check existence of regression components
         ####SSVS for drawing gamma, sigma_eplison, beta######
@@ -101,25 +99,25 @@ QFSTS.func<-
         Xtemp2<-X.star[,(ki[1]+1):ki[2]]
         X<-as.matrix(bdiag(Xtemp1,Xtemp2))
         if(m>2){
-          for (j in 3:m){   
+          for (j in 3:m){
             Xtemp<-X.star[,(ki[j-1]+1):ki[j]]
-            X<-as.matrix(bdiag(X,Xtemp)) 
+            X<-as.matrix(bdiag(X,Xtemp))
           }
         }
-        
+
         if(is.null(STmodel)){
-          Y.star<- Y 
+          Y.star<- Y
         } else {
-          Y.star<- Y-LS%*%t(matrix(STmodel$Z,nrow=m)) 
+          Y.star<- Y-LS%*%t(matrix(STmodel$Z,nrow=m))
           #substract time series component from target series
         }
         for (i in 1:m){
           Y.star[,i]<-Y.star[,i]-mean(Y.star[,i])  #demean response variable
         }
         Y.tilde<-matrix(Y.star,ncol = 1)   #transform to vector form
-        
-        
-        
+
+
+
         #transformed system with uncorrelated errors
         U<-chol(Sigma2)    #Cholesky decomposition for observation variance parameter
         U_inv<-solve(U)
@@ -127,20 +125,20 @@ QFSTS.func<-
         X.hat<-UI%*%X            #transformed X
         Y.hat<-UI%*%Y.tilde      #trasnformed y
         mu_err.hat<-UI%*%mu_err.tilde  #trasnformed mu_err
-        
+
         ###Prior parameters setting
         V0=(v0-m-1)*(1-R2)*var(Y.star)    #prior scale matrix for sigma_epsilon
-        
+
         A<-kapp*(t(X)%*%X)/n   #prior information matrix for beta
-        
-        ###All posterior parameters 
+
+        ###All posterior parameters
         V<-1/W*t(X.hat)%*%X.hat+A   #posterior co-variance matrix for beta
         N=n+v0       #posterior degree freedom for sigma_epsilon
         gama<-I     #assign value to temporary gamma
-        
+
         #####draw each gamma ######
         for(j in sample(Xindex))
-        {   
+        {
           zero<-0
           ####To make sure at least one predictor selected
           if(sum(gama[-j])==0){
@@ -148,25 +146,25 @@ QFSTS.func<-
             Index<-sample(Xindex[-j],1)
             gama[Index]<-1     #randomly choose one predictor except jth predictor
           }
-          
+
           p<-vector()
           for(value in 1:0)
-          { 
+          {
             gama[j]<-value
-            p.gamma<- prod(pii^gama)*prod((1-pii)^(1-gama))     
-            #prior probability for gamma 
-            b.gamma<-b[which(gama==1),]   
+            p.gamma<- prod(pii^gama)*prod((1-pii)^(1-gama))
+            #prior probability for gamma
+            b.gamma<-b[which(gama==1),]
             #prior coefficients for selected predictors
             X.gamma<-X.hat[,which(gama==1)] #design matrix with selected predictors
             ####prior parameters
-            A.gamma<-A[which(gama==1),which(gama==1)] 
+            A.gamma<-A[which(gama==1),which(gama==1)]
             #prior information matrix with selected predictors
-            
+
             ####posterior parameters
-            V.gamma<-V[which(gama==1),which(gama==1)]   
-            #posterior co-variance matrix for beta with selected predictors 
+            V.gamma<-V[which(gama==1),which(gama==1)]
+            #posterior co-variance matrix for beta with selected predictors
             Z.gamma<-1/W*t(X.gamma)%*%Y.hat+A.gamma%*%b.gamma-t(X.gamma)%*%mu_err.hat
-            
+
             exp.par<-as.vector(t(b.gamma)%*%A.gamma%*%b.gamma-
                                  t(Z.gamma)%*%solve(V.gamma)%*%Z.gamma)
             ##Set constant value to shrink value for exponent##
@@ -175,11 +173,11 @@ QFSTS.func<-
             }
             ###posterior pmf for gamma
             p[value+1]<-(det(as.matrix(A.gamma))/det(as.matrix(V.gamma)))^(1/2)*
-              p.gamma*exp(-0.5*(exp.par-temp))  
+              p.gamma*exp(-0.5*(exp.par-temp))
           }
           ##debug due to computation round off
           if (p[2]/(p[1]+p[2])>1){
-            gama[j]<-rbinom(1, 1, prob=1)     
+            gama[j]<-rbinom(1, 1, prob=1)
           } else {
             gama[j]<-rbinom(1, 1, prob=p[2]/(p[1]+p[2]))    #update the gamma[j]
           }
@@ -188,42 +186,42 @@ QFSTS.func<-
           }
         }
         I<-gama    #assign updated gamma to indicator function
-        
+
         ###All predictors not selected (not checked and changed)
         if(sum(I)==0){
           Obs.sigma2<-cov(Obs.error)     #assign value to sigma^2_eplison
           beta<-matrix(0,nrow=K,ncol=1)  #assign zero to all coefficients
-          B<-matrix(0,nrow=K,ncol=m)     
+          B<-matrix(0,nrow=K,ncol=m)
         }  else{     ###At least one predictor selected
           ######draw sigma and beta############
-          b.gamma<-b[which(I==1),]    
+          b.gamma<-b[which(I==1),]
           ####prior coefficients for selected predictors
           X.gamma<-X.hat[,which(I==1)]   #design matrix with selected predictors
           Xstar.gamma<-X.star[,which(I==1)]   #design matrix with selected predictors
           ####prior parameters
-          A.gamma<-A[which(I==1),which(I==1)] 
-          ####prior information matrix with selected predictors 
+          A.gamma<-A[which(I==1),which(I==1)]
+          ####prior information matrix with selected predictors
           ####posterior parameters
-          V.gamma<-V[which(I==1),which(I==1)]  
+          V.gamma<-V[which(I==1),which(I==1)]
           beta.sigma<-solve(V.gamma)
-          #posterior co-variance matrix for beta with selected predictors 
+          #posterior co-variance matrix for beta with selected predictors
           beta.tilde<-beta.sigma%*%(1/W*t(X.gamma)%*%Y.hat-t(X.gamma)%*%mu_err.hat+A.gamma%*%b.gamma)
-          
+
           beta<-matrix(0,nrow=K,ncol=1)     #initialization of beta
-          beta.temp<-mvrnorm(n=1,mu=beta.tilde,Sigma=beta.sigma)    
+          beta.temp<-mvrnorm(n=1,mu=beta.tilde,Sigma=beta.sigma)
           #draw beta from multivariate normal distribution
           beta[which(I==1),]<-beta.temp
           ##beta is generated with new gamma
-          
-          
+
+
           ####transfrom beta to matrix form
           betai1<-beta[1:ki[1],]
           betai2<-beta[(ki[1]+1):ki[2],]
           B<-as.matrix(bdiag(betai1,betai2))
           if(m>2){
-            for (j in 3:m){   
+            for (j in 3:m){
               betai<-beta[(ki[j-1]+1):ki[j],]
-              B<-as.matrix(bdiag(B,betai)) 
+              B<-as.matrix(bdiag(B,betai))
             }
           }
           B.gamma<-matrix(B[which(I==1),],ncol=m)  #estimated coefficients with selected predictors
@@ -236,8 +234,8 @@ QFSTS.func<-
           Obs.sigma2.temp<-riwish(N,SS.post)  #draw observation variance parameter
           Obs.sigma2<-Phi%*%Obs.sigma2.temp%*%Phi
           #Obs.sigma2<-riwish(N,SS.post)
-          
-          
+
+
           U2<-chol(Obs.sigma2.temp)
           U_inv2<-solve(U2)
           #V.scale<-diag(1,m)
@@ -259,20 +257,20 @@ QFSTS.func<-
                                                           %*%(E.gamma.temp%*%proposedx.inv%*%U_inv2-tilde_Phi_tau_matrix%*%U_inv2*W)))
               resultB=det(proposedx)^{n}*exp(-1/2*tr(1/W*t(E.gamma.temp%*%currentx.inv%*%U_inv2-tilde_Phi_tau_matrix%*%U_inv2*W)
                                                          %*%(E.gamma.temp%*%currentx.inv%*%U_inv2-tilde_Phi_tau_matrix%*%U_inv2*W)))
-              
-        
-              #AAA = (/)*(/resultB) 
+
+
+              #AAA = (/)*(/resultB)
               #if(AAA==Inf){AAA=1}
               if(resultA>resultB){
                 x.record[,,i_ind] = proposedx       # accept move with probabily min(1,A)
               } else {
                 x.record[,,i_ind] = currentx        # otherwise "reject" move, and stay where we are
               }
-            } 
+            }
             Phi=x.record[,,1000]
-   
-          
-          
+
+
+
           mu_err<-Phi%*%tilde_phi
           mu_err.tilde<-rep(mu_err,each=n)
           UI<-t(U_inv)%x%diag(n)
@@ -283,11 +281,11 @@ QFSTS.func<-
           W.p<-1-n/2
           W<-rgig(1, W.b, W.a, W.p, param = c(W.b, W.a, W.p))
           #https://www.rdocumentation.org/packages/GeneralizedHyperbolic/versions/0.8-4/topics/Generalized%20Inverse%20Gaussian
-          #W is generated with new Simga_epsilon, mu_err, Y-X_{gamma}beta_{gamma} 
+          #W is generated with new Simga_epsilon, mu_err, Y-X_{gamma}beta_{gamma}
         }
       }
-      
-      
+
+
       ####assign values to output results during each iteration
       if(jj>burn){
         if(!is.null(STmodel)){
@@ -307,12 +305,12 @@ QFSTS.func<-
         W.record[,(jj-burn)]<-W
         Phi.record[,,(jj-burn)]<-Phi
       }
-      
+
       #####updating state space model parameters
       if(!is.null(STmodel)){
         if(!is.null(X.star)){
           rowname<-row.names(STmodel$y)
-          STmodel$y[]<- ts(Y-X.star%*%B,names = colnames(STmodel$y)) 
+          STmodel$y[]<- ts(Y-X.star%*%B,names = colnames(STmodel$y))
           ####target series
           row.names(STmodel$y)<-rowname
           ####variance-covariance matrix for observation errors
@@ -330,7 +328,7 @@ QFSTS.func<-
         Sigma2 <- matrix(Obs.sigma2,m,m)
       }
     }
-    
+
     #####return output results
     if(!is.null(X.star) & !is.null(STmodel)){
       return (list(Ind=Ind, beta.hat=beta.hat, B.hat=B.hat,
