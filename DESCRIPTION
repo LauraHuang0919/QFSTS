@@ -14,7 +14,7 @@ Maintainer: Laura Huang <rhuang93@tamu.edu>
 Description: Tools for feature selection in high-dimensional joint quantile time series analysis, 
         under the name of the quantile feature selection time series (QFSTS) model. Specifically,
         the package provides facilities for conducting feature selection on the regression 
-        components, estimating parameters, and forecasting.
+        components and estimating parameters.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
