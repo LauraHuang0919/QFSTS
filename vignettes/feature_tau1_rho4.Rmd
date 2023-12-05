@@ -9,9 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-# source("R/tsc.setting.QFSTS.R")
-# source("R/QFSTS.R")
-# source("R/QFSTS.forecast.R")
 source("3_series_eg1.R")
 library(QFSTS)
 ```
