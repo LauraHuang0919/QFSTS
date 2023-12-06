@@ -51,6 +51,26 @@ library(forecast)
 #' @export
 #'
 #' @examples
+#' tau1<-c(0.1,0.1,0.1)
+#' count=100
+#' for (n in count){
+#' nam <- paste("simdata_3series_tau1_",n, sep = "")
+#' assign(nam, sim.data.func(n,tau1,corr=0.4))}
+#' Ytrain<-as.matrix(simdata_3series_tau1_100[,1:3])
+#' Xtrain<-as.matrix(simdata_3series_tau1_100[,4:27])
+#'
+#' pii<- matrix(rep(0.5,dim(Xtrain)[2]),nrow=dim(Xtrain)[2])
+#' b<-matrix(0,dim(Xtrain)[2])
+#' kapp<-0.01
+#' R2<-0.8
+#' v0<-5
+#' v<-0.01
+#' ss<-0.01
+#' Phi<-diag(c(0.7,0.6,0.9))
+#' set.seed(1)
+#' QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
+#'
+
 QFSTS.func<-
   function(Y,X.star=NULL,STmodel=NULL,
            ki=NULL,pii=NULL,

@@ -11,6 +11,15 @@
 #' @export
 #'
 #' @examples
+#' tau1<-c(0.1,0.1,0.1)
+#' count=100
+#' for (n in count){
+#' nam <- paste("simdata_3series_tau1_",n, sep = "")
+#' assign(nam, sim.data.func(n,tau1,corr=0.4))}
+#' Ytrain<-as.matrix(simdata_3series_tau1_100[,1:3])
+#'
+#' STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
+#'
 tsc.setting <-
     function(Ytrain,mu=NULL,rho=NULL,S=NULL,vrho=NULL,lambda=NULL){
 
