@@ -20,6 +20,7 @@
 #'
 #' STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
 #'
+#'
 tsc.setting <-
     function(Ytrain,mu=NULL,rho=NULL,S=NULL,vrho=NULL,lambda=NULL){
 
