@@ -62,6 +62,7 @@ An object of QFSTS class
 Main function for the quantile feature selection time series.
 }
 \examples{
+source("vignettes/3_series_eg1.R")
 tau1<-c(0.1,0.1,0.1)
 count=100
 for (n in count){
