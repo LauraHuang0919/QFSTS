@@ -1,22 +1,19 @@
-# This function simulates 3 time series data to be used.
-
-# library(LaplacesDemon)
-# library(tibble)
-# library(GeneralizedHyperbolic)
-# library(pscl)
-# library(MASS)
-# library(KFAS)
-# library(MCMCpack)
-# library(Matrix)
-# library(BBmisc)
-# library(reshape)
-# library(ggplot2)
-# library(backports)
-
-##################################################################################
-##################################################################################
-##################################################################################
-##################################################################################
+#' Title This function simulates 3 time series data to be used
+#'
+#' @param n number of observations
+#' @param tau A vecotr containing the quantile values.
+#' @param corr correlation value
+#'
+#' @return a dataset to train
+#' @export
+#'
+#' @examples
+#' tau1<-c(0.1,0.1,0.1)
+#' count=100
+#' for (n in count){
+#' nam <- paste("simdata_3series_tau1_",n, sep = "")
+#' assign(nam, sim.data.func(n,tau1,corr=0.4))}
+#'
 sim.data.func<-function(n,tau,corr){
 
   set.seed(100)

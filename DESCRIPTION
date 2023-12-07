@@ -1,6 +1,6 @@
 Package: QFSTS
 Title: Quantile Feature Selection Time Series 
-Imports: KFAS, Matrix, pscl, MCMCpack, MASS, ggplot2, BBmisc, matrixStats, methods, fBasics, reshape, GeneralizedHyperbolic, LaplacesDemon, forecast
+Imports: KFAS, Matrix, pscl, MCMCpack, MASS, ggplot2, BBmisc, matrixStats, methods, fBasics, reshape, GeneralizedHyperbolic, LaplacesDemon, forecast, tibble, backports
 Suggests: knitr, rmarkdown, testthat 
 Version: 0.1.0
 Author@R: 
