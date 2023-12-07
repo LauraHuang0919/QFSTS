@@ -1,17 +1,17 @@
 # This function simulates 3 time series data to be used.
 
-# library(LaplacesDemon)
-# library(tibble)
-# library(GeneralizedHyperbolic)
-# library(pscl)
-# library(MASS)
-# library(KFAS)
-# library(MCMCpack)
-# library(Matrix)
-# library(BBmisc)
-# library(reshape)
-# library(ggplot2)
-# library(backports)
+library(LaplacesDemon)
+library(tibble)
+library(GeneralizedHyperbolic)
+library(pscl)
+library(MASS)
+library(KFAS)
+library(MCMCpack)
+library(Matrix)
+library(BBmisc)
+library(reshape)
+library(ggplot2)
+library(backports)
 
 ##################################################################################
 ##################################################################################

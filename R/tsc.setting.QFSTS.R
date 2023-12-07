@@ -11,9 +11,8 @@
 #' @export
 #'
 #' @examples
-#' Ytrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100)))
-#' STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
-#'
+#' Ytrain = cbind(rnorm(100), rnorm(100))
+#' tsc.setting(Ytrain)
 #'
 tsc.setting <-
     function(Ytrain,mu=NULL,rho=NULL,S=NULL,vrho=NULL,lambda=NULL){

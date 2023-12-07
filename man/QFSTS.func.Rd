@@ -61,22 +61,3 @@ An object of QFSTS class
 \description{
 Main function for the quantile feature selection time series.
 }
-\examples{
-
-tau1<-c(0.1,0.1,0.1)
-Ytrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100)))
-X<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100), rnorm(100), rnorm(100), rnorm(100)))
-Xtrain <- cbind(X, X)
-STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
-pii<- matrix(rep(0.5,dim(Xtrain)[2]),nrow=dim(Xtrain)[2])
-b<-matrix(0,dim(Xtrain)[2])
-kapp<-0.01
-R2<-0.8
-v0<-5
-v<-0.01
-ss<-0.01
-Phi<-diag(c(0.7,0.6,0.9))
-set.seed(1)
-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
-
-}

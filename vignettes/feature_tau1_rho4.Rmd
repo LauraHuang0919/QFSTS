@@ -9,8 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, include=FALSE}
-library(LaplacesDemon)
-# source("3_series_eg1.R")
+source("3_series_eg1.R")
 library(QFSTS)
 ```
 

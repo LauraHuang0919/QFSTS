@@ -32,9 +32,3 @@ Structural time series model
 \description{
 Specification of time series components
 }
-\examples{
-Ytrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100)))
-STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
-
-
-}

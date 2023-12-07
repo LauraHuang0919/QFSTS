@@ -1,9 +1,9 @@
 Package: QFSTS
 Title: Quantile Feature Selection Time Series 
-Imports: KFAS, Matrix, pscl, MCMCpack, MASS, ggplot2, BBmisc, matrixStats, methods, fBasics, reshape, GeneralizedHyperbolic, forecast, tibble, backports
+Imports: LaplacesDemon, KFAS, Matrix, pscl, MCMCpack, MASS, ggplot2, BBmisc, matrixStats, methods, fBasics, reshape, GeneralizedHyperbolic, forecast, tibble, backports
 Suggests: knitr, rmarkdown, testthat 
 Version: 0.1.0
-Author@R: 
+Author: 
     c(person("Laura", "Huang",
             email = "rhuang93@tamu.edu",
              role = c("aut", "cre")),
@@ -17,6 +17,5 @@ Description: Tools for feature selection in high-dimensional joint quantile time
         components and estimating parameters.
 License: GPL (>= 3)
 Encoding: UTF-8
-LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
