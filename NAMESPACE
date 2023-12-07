@@ -2,4 +2,3 @@
 
 export(QFSTS.func)
 export(tsc.setting)
-import(stats)

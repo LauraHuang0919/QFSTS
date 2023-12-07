@@ -1,16 +1,25 @@
 ---
-title: "feature_tau1_rho4"
-output: html_document
-date: "2023-12-05"
+title: "feature_tau1_tho4"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{feature_tau1_tho4}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
 
-```{r, include=FALSE}
-source("3_series_eg1.R")
+```{r setup}
 library(QFSTS)
+```
+
+```{r}
+source("3_series_eg1.R")
 ```
 
 ```{r, include=FALSE}
@@ -26,7 +35,7 @@ Xtrain<-as.matrix(simdata_3series_tau1_100[,4:27])
 ```
 
 ```{r}
-STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), #mu: include trend or not
+STmodel<-QFSTS::tsc.setting(Ytrain,mu=c(1,1,1), #mu: include trend or not
                      rho=c(0.6,0.3,0.1),
                      S=c(100,70,40))
 ```
@@ -55,5 +64,6 @@ Phi<-diag(c(0.7,0.6,0.9))
 
 ```{r}
 set.seed(1)
-QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=40,burn=10)
+QFSTS.model<-QFSTS::QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,mc=10,burn=5)
 ```
+

@@ -10,10 +10,9 @@
 #' @return Structural time series model
 #' @export
 #'
-#' @examples
-#' Ytrain = cbind(rnorm(100), rnorm(100))
-#' tsc.setting(Ytrain)
-#'
+
+# Since using this function requires a seperate data simulation function, we moved the example code to vignettes.
+
 tsc.setting <-
     function(Ytrain,mu=NULL,rho=NULL,S=NULL,vrho=NULL,lambda=NULL){
 

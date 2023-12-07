@@ -32,8 +32,3 @@ Structural time series model
 \description{
 Specification of time series components
 }
-\examples{
-Ytrain = cbind(rnorm(100), rnorm(100))
-tsc.setting(Ytrain)
-
-}

@@ -1,25 +1,3 @@
-# install.packages("GeneralizedHyperbolic")
-# install.packages("pscl")
-# install.packages("MASS")
-# install.packages("KFAS")
-# install.packages("MCMCpack")
-# install.packages("Matrix")
-# install.packages("BBmisc")
-# install.packages("reshape")
-library(GeneralizedHyperbolic)
-library(pscl)
-library(MASS)
-library(KFAS)
-library(MCMCpack)
-library(Matrix)
-library(BBmisc)
-library(reshape)
-library(fBasics)
-library(LaplacesDemon)
-library(forecast)
-# Y=Ytrain
-# X.star=Xtrain
-
 #' Main function for the quantile feature selection time series.
 #'
 #' @param Y  A (n ∗ m)-dimensional matrix containing multiple target series, where n is thenumber of observations and m
@@ -49,10 +27,9 @@ library(forecast)
 #'
 #' @return An object of QFSTS class
 #' @export
-#'
-#' @examples
-#' Ytrain = cbind(rnorm(100), rnorm(100))
-#' QFSTS.func(Ytrain)
+
+# Since using this function requires a seperate data simulation function, we moved the example code to vignettes.
+
 
 QFSTS.func<-
   function(Y,X.star=NULL,STmodel=NULL,

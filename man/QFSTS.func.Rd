@@ -61,7 +61,3 @@ An object of QFSTS class
 \description{
 Main function for the quantile feature selection time series.
 }
-\examples{
-Ytrain = cbind(rnorm(100), rnorm(100))
-QFSTS.func(Ytrain)
-}

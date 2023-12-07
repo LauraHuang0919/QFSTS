@@ -15,6 +15,7 @@ Description: Tools for feature selection in high-dimensional joint quantile time
         under the name of the quantile feature selection time series (QFSTS) model. Specifically,
         the package provides facilities for conducting feature selection on the regression 
         components and estimating parameters.
+LazyData: true
 License: GPL (>= 3)
 Encoding: UTF-8
 VignetteBuilder: knitr
