@@ -56,6 +56,7 @@ library(forecast)
 #' Ytrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100)))
 #' Xtrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100), rnorm(100), rnorm(100), rnorm(100)))
 #'
+#' STmodel<-tsc.setting(Ytrain,mu=c(1,1,1), rho=c(0.6,0.3,0.1), S=c(100,70,40))
 #' pii<- matrix(rep(0.5,dim(Xtrain)[2]),nrow=dim(Xtrain)[2])
 #' b<-matrix(0,dim(Xtrain)[2])
 #' kapp<-0.01
