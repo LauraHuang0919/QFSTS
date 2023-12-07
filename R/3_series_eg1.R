@@ -15,18 +15,6 @@
 #' assign(nam, sim.data.func(n,tau1,corr=0.4))}
 #'
 #'
-library(LaplacesDemon)
-library(tibble)
-library(GeneralizedHyperbolic)
-library(pscl)
-library(MASS)
-library(KFAS)
-library(MCMCpack)
-library(Matrix)
-library(BBmisc)
-library(reshape)
-library(ggplot2)
-library(backports)
 sim.data.func<-function(n,tau,corr){
 
   set.seed(100)

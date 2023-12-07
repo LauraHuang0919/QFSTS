@@ -26,4 +26,5 @@ for (n in count){
 nam <- paste("simdata_3series_tau1_",n, sep = "")
 assign(nam, sim.data.func(n,tau1,corr=0.4))}
 
+
 }
