@@ -51,14 +51,10 @@ library(forecast)
 #' @export
 #'
 #' @examples
-#' source("vignettes/3_series_eg1.R")
+#'
 #' tau1<-c(0.1,0.1,0.1)
-#' count=100
-#' for (n in count){
-#' nam <- paste("simdata_3series_tau1_",n, sep = "")
-#' assign(nam, sim.data.func(n,tau1,corr=0.4))}
-#' Ytrain<-as.matrix(simdata_3series_tau1_100[,1:3])
-#' Xtrain<-as.matrix(simdata_3series_tau1_100[,4:27])
+#' Ytrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100)))
+#' Xtrain<-as.matrix(cbind(rnorm(100),rnorm(100),rnorm(100), rnorm(100), rnorm(100), rnorm(100)))
 #'
 #' pii<- matrix(rep(0.5,dim(Xtrain)[2]),nrow=dim(Xtrain)[2])
 #' b<-matrix(0,dim(Xtrain)[2])
