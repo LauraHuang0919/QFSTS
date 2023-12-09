@@ -13,6 +13,8 @@ devtools::install_github("LauraHuang0919/QFSTS", build_vignettes = TRUE)
 ```{r attach, echo=T, results='hide', message=F, warning=F, tidy='formatR'}
 library(QFSTS)
 ```
+### Note: Since using this function requires a separate data simulation function, we moved the example code to vignettes.
+
 ### 1. Specification of time series components
 
 Generation of the initial time series components in the mbsts package is through the tsc.setting function. The other input parameters of the tsc.setting function are the following: The trend inclusion parameter mu and the learning rate parameter rho for the trend component; The seasonality parameter S for the seasonal component; The damping factor parameter vrho and the frequency parameter lambda for the cycle component.

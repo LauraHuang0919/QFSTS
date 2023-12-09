@@ -28,7 +28,7 @@
 #' @return An object of QFSTS class
 #' @export
 
-# Since using this function requires a seperate data simulation function, we moved the example code to vignettes.
+# Since using this function requires a separate data simulation function, we moved the example code to vignettes.
 
 
 QFSTS.func<-
