@@ -36,4 +36,11 @@ QFSTS.model<-QFSTS.func(Ytrain,Xtrain,STmodel,ki,pii,b,kapp,R2,v0,v,ss,tau1,Phi,
 
 ## Details
 
-For more information on QFSTS Package, please access the package documentations or [vignettes](https://github.com/LauraHuang0919/QFSTS/tree/main/vignettes). Please feel free to contact the author.
+For more information on QFSTS Package, please access the package documentations or [vignettes](https://github.com/LauraHuang0919/QFSTS/tree/main/vignettes). 
+
+```{r conversion, tidy='formatR', tidy.opts=list(width.cutoff = 70),cache=T}
+
+browseVignettes(package="QFSTS")
+
+```
+Please feel free to contact the author.
