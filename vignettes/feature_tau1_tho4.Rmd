@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo= FALSE}
 devtools::install_github("LauraHuang0919/QFSTS", build_vignettes = TRUE)
 library(QFSTS)
 ```
