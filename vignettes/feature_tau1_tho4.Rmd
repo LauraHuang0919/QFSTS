@@ -19,7 +19,7 @@ devtools::install_github("LauraHuang0919/QFSTS", build_vignettes = TRUE)
 library(QFSTS)
 ```
 
-```{r}
+```{r, echo= False}
 source("3_series_eg1.R")
 ```
 
