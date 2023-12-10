@@ -14,16 +14,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo= FALSE}
+```{r setup}
 devtools::install_github("LauraHuang0919/QFSTS", build_vignettes = TRUE)
 library(QFSTS)
 ```
 
-```{r, echo= False}
+```{r}
 source("3_series_eg1.R")
 ```
 
-```{r, include=FALSE}
+```{r}
 tau1<-c(0.1,0.1,0.1)
 count=100
 for (n in count){
